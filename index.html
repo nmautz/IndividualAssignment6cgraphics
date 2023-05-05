@@ -375,7 +375,7 @@
         function move_cube_along_curves(){
           let t = 0;
           let max_t = 25;
-          let interval = null;
+          interval = null;
           let points = left_points;
           let points2 = right_points;
 
@@ -394,9 +394,14 @@
 
             t++;
             if(t >= max_t){
+              console.log("clearing interval", interval)
               clearInterval(interval);
               t=0;
-              interval = setInterval(move2, 10)
+              if(is_moving){
+                interval = setInterval(move2, 10)
+                console.log("interval", interval)
+              }
+
             }
             render();
           }
@@ -415,9 +420,15 @@
 
             t++;
             if(t >= max_t){
+              console.log("clearing interval", interval)
               clearInterval(interval);
               t=0;
-              interval = setInterval(move1, 10)
+              if(is_moving){
+                console.log(is_moving)
+                interval = setInterval(move1, 10)
+                console.log("interval", interval)
+              }
+              
             }
             render();
           }
@@ -425,10 +436,24 @@
           
 
           interval = setInterval(move1, 10)
+          console.log("interval", interval)
 
         }
+        is_moving = false;
         move_cube_along_curves();
+        clearInterval(interval);
 
+        document.addEventListener("keydown", (e)=>{
+          if(e.key == " "){
+            if(is_moving){
+              is_moving = false;
+
+            }else{
+              is_moving = true;
+              move_cube_along_curves();
+            }
+          }
+        })
 
 
 
