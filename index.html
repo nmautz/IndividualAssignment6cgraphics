@@ -361,16 +361,9 @@
         let right_points = []
         let curve_geom2 = createBezierCurve(cp_list_right, 25, right_points)
 
-        let curve_mat = new THREE.LineBasicMaterial({
-          color: "red",
-          linewidth: 2
-        })
+  
 
-        let curve_mesh = new THREE.Line(curve_geom, curve_mat);
-        scene.add(curve_mesh);
 
-        let curve_mesh2 = new THREE.Line(curve_geom2, curve_mat);
-        scene.add(curve_mesh2);
         
         function move_cube_along_curves(){
           let t = 0;
