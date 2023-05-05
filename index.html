@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Day Scene</title>
+    <title>IA6</title>
 
     <style>
 
@@ -85,9 +85,8 @@
 
 <body>
 
-    <h1>Aircraft Carrier At Sea(Day)</h1>
+    <h1>IA6</h1>
     <p>
-      controls: "t" to have the jet takeoff, "l" to land, "f" to have the camera map to following the jet in air which is currently <span id="ftext">false</span>
     </p>
 
     <script>
@@ -117,8 +116,6 @@
             depthWrite: false
         });
         let cloud1_mesh = new THREE.Mesh(cloud_geom, cloud_mat);
-        let cloud2_mesh = new THREE.Mesh(cloud_geom, cloud_mat);
-        let cloud3_mesh = new THREE.Mesh(cloud_geom, cloud_mat);
 
         cloud1_mesh.position.set(0, 0, 0);
 
