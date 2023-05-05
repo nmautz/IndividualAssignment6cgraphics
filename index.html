@@ -372,6 +372,62 @@
         let curve_mesh2 = new THREE.Line(curve_geom2, curve_mat);
         scene.add(curve_mesh2);
         
+        function move_cube_along_curves(){
+          let t = 0;
+          let max_t = 25;
+          let interval = null;
+          let points = left_points;
+          let points2 = right_points;
+
+          function move1(){
+            let p = points[t]
+            let p2 = points2[t]
+
+
+            cube_mesh.position.x = p.x;
+            cube_mesh.position.y = p.y;
+            cube_mesh.position.z = p.z;
+
+            cube_mesh2.position.x = p.x;
+            cube_mesh2.position.y = p.y;
+            cube_mesh2.position.z = p.z;
+
+            t++;
+            if(t >= max_t){
+              clearInterval(interval);
+              t=0;
+              interval = setInterval(move2, 10)
+            }
+            render();
+          }
+          function move2(){
+            let p = points[t]
+            let p2 = points2[t]
+
+
+            cube_mesh.position.x = p2.x;
+            cube_mesh.position.y = p2.y;
+            cube_mesh.position.z = p2.z;
+
+            cube_mesh2.position.x = p2.x;
+            cube_mesh2.position.y = p2.y;
+            cube_mesh2.position.z = p2.z;
+
+            t++;
+            if(t >= max_t){
+              clearInterval(interval);
+              t=0;
+              interval = setInterval(move1, 10)
+            }
+            render();
+          }
+
+          
+
+          interval = setInterval(move1, 10)
+
+        }
+        move_cube_along_curves();
 
 
 
