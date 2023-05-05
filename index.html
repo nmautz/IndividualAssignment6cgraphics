@@ -272,7 +272,7 @@
         let directional_light = new THREE.DirectionalLight(0xffffff, 0.5);
         directional_light.position.set(0, 1, 1);
         scene.add(directional_light);
-        
+
 
 
         //wall behind the cube
@@ -537,6 +537,18 @@
           render();
         })
 
+
+        var gui_params = {
+          glass_transparency: 0.2,
+        }
+
+        let gui = new dat.GUI();
+
+        gui.add(gui_params, "glass_transparency", 0, 1, 0.01).onChange((val)=>{
+          front_glass_mesh.material.opacity = val;
+          front_glass_mesh.material.opacity = val;
+          render();
+        })
 
 
 
