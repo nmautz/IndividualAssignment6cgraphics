@@ -171,7 +171,6 @@
 
             return geom;
         }
-        //create uv map for cube with generated dot texture
         let cube_geom = custom_cube_geom();
 
 
@@ -201,12 +200,18 @@
             }
 
             // set up texture coordinates each side of cube
-            faceCoords(0, 0, 0, 1, 1, 0);      // bottom
-            faceCoords(0, 1, 1, 1, 1, 0);      // top
-            faceCoords(0, 1, 1, 0, 0, 0);    // front
-            faceCoords(0, 1, 1, 1, 0.5, 0);    // back
-            faceCoords(0, 1, 1, 1, 0, 0);    // left
-            faceCoords(0, 1, 1, 1, 0, 0);    // right
+            faceCoords(0, 0, 0, 1, 1, 0);   
+            faceCoords(0, 1, 1, 1, 1, 0);    
+            faceCoords(0, 1, 1, 0, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0.5, 0);  
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
+            faceCoords(0, 1, 1, 1, 0, 0);    
 
             // attach the UVs array to the Geometry
             geom.faceVertexUvs = [UVs];
