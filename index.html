@@ -277,6 +277,22 @@
         scene.add(wall_mesh);
 
 
+        let left_glass_wall_geom = new THREE.BoxGeometry(100, 100, 1);
+        let left_glass_wall_mat = new THREE.MeshBasicMaterial({
+            color: "grey",
+            side: THREE.DoubleSide,
+            opacity: 0.5,
+            transparent: true,
+            depthWrite: false,
+        });
+        let left_glass_wall_mesh = new THREE.Mesh(left_glass_wall_geom, left_glass_wall_mat);
+        left_glass_wall_mesh.position.x = -50;
+        left_glass_wall_mesh.rotation.y = Math.PI / 2;
+        scene.add(left_glass_wall_mesh);
+        left_glass_wall_mesh.renderOrder = 1;
+
+
+
         let scale_amount = 0.01;
 
         //increase cube scale
