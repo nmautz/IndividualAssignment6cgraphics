@@ -540,6 +540,7 @@
 
         var gui_params = {
           glass_transparency: 0.2,
+          wall_scale: 1,
         }
 
         let gui = new dat.GUI();
@@ -547,6 +548,54 @@
         gui.add(gui_params, "glass_transparency", 0, 1, 0.01).onChange((val)=>{
           front_glass_mesh.material.opacity = val;
           front_glass_mesh.material.opacity = val;
+          render();
+        })
+
+        gui.add(gui_params, "wall_scale", 0, 10, 0.01).onChange((val)=>{
+          wall_mesh.scale.x = val;
+          wall_mesh.scale.y = val;
+          wall_mesh.scale.z = val;
+
+          front_glass_mesh.scale.x = val;
+          front_glass_mesh.scale.y = val;
+          front_glass_mesh.scale.z = val;
+
+          left_glass_wall_mesh.scale.x = val;
+          left_glass_wall_mesh.scale.y = val;
+          left_glass_wall_mesh.scale.z = val;
+
+          right_glass_wall_mesh.scale.x = val;
+          right_glass_wall_mesh.scale.y = val;
+          right_glass_wall_mesh.scale.z = val;
+
+          top_glass_mesh.scale.x = val;
+          top_glass_mesh.scale.y = val;
+          top_glass_mesh.scale.z = val;
+
+          bottom_glass_mesh.scale.x = val;
+          bottom_glass_mesh.scale.y = val;
+          bottom_glass_mesh.scale.z = val;
+
+          //update position of the cube with scale "val"
+
+          left_glass_wall_mesh.position.x = -50*val;
+          left_glass_wall_mesh.position.y = 0;
+          left_glass_wall_mesh.position.z = 0;
+
+          right_glass_wall_mesh.position.x = 50*val;
+          right_glass_wall_mesh.position.y = 0;
+          right_glass_wall_mesh.position.z = 0;
+
+          top_glass_mesh.position.x = 0;
+          top_glass_mesh.position.y = 50*val;
+
+          bottom_glass_mesh.position.x = 0;
+          bottom_glass_mesh.position.y = -50*val;
+
+          front_glass_mesh.position.z = 50*val;
+          
+
+          
           render();
         })
 
