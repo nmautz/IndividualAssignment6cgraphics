@@ -228,6 +228,12 @@
         let cube_mesh = new THREE.Mesh(cube_geom, cube_mat);
         scene.add(cube_mesh);
 
+        //add second cube
+        let cube_mesh2 = cube_mesh.clone();
+        //rotate cube
+        cube_mesh2.rotation.z = Math.PI / 2;
+        scene.add(cube_mesh2);
+
 
         //wall behind the cube
         let wall_geom = new THREE.BoxGeometry(100, 100, 1);
@@ -250,6 +256,10 @@
             cube_mesh.scale.y += scale_amount;
             cube_mesh.scale.z += scale_amount;
 
+            cube_mesh2.scale.x += scale_amount;
+            cube_mesh2.scale.y += scale_amount;
+            cube_mesh2.scale.z += scale_amount;
+
             //render the scene
         }
         
@@ -258,6 +268,10 @@
             cube_mesh.scale.x -= scale_amount;
             cube_mesh.scale.y -= scale_amount;
             cube_mesh.scale.z -= scale_amount;
+
+            cube_mesh2.scale.x -= scale_amount;
+            cube_mesh2.scale.y -= scale_amount;
+            cube_mesh2.scale.z -= scale_amount;
         }
 
         //interval to increase scale
