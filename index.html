@@ -281,7 +281,7 @@
         let left_glass_wall_mat = new THREE.MeshBasicMaterial({
             color: "grey",
             side: THREE.DoubleSide,
-            opacity: 0.5,
+            opacity: 0.2,
             transparent: true,
             depthWrite: false,
         });
@@ -290,6 +290,37 @@
         left_glass_wall_mesh.rotation.y = Math.PI / 2;
         scene.add(left_glass_wall_mesh);
         left_glass_wall_mesh.renderOrder = 1;
+
+        let right_glass_wall_mesh = left_glass_wall_mesh.clone();
+        right_glass_wall_mesh.position.x = 50;
+        scene.add(right_glass_wall_mesh);
+
+        let bottom_glass_mesh = left_glass_wall_mesh.clone();
+        bottom_glass_mesh.position.x = 0;
+
+        bottom_glass_mesh.position.y = -50;
+
+        //rotate to be floor
+        bottom_glass_mesh.rotateX(Math.PI / 2);
+
+
+
+        scene.add(bottom_glass_mesh);
+
+
+        let top_glass_mesh = left_glass_wall_mesh.clone();
+        top_glass_mesh.position.x = 0;
+        top_glass_mesh.position.y = 50;
+        top_glass_mesh.rotateX(Math.PI / 2);
+        scene.add(top_glass_mesh);
+
+
+        let front_glass_mesh = left_glass_wall_mesh.clone();
+        front_glass_mesh.position.z = -50;
+        front_glass_mesh.position.y = 0;
+        front_glass_mesh.position.x = 0;
+        front_glass_mesh.rotateY(Math.PI / 2);
+        scene.add(front_glass_mesh);
 
 
 
