@@ -122,6 +122,110 @@
         scene.add(cloud1_mesh);
 
 
+        function custom_cube_geom(){
+            let geom = new THREE.Geometry();
+            let v0 = new THREE.Vector3(0, 0, 0);
+            let v1 = new THREE.Vector3(10, 0, 0);
+            let v2 = new THREE.Vector3(10, 10, 0);
+            let v3 = new THREE.Vector3(0, 10, 0);
+            let v4 = new THREE.Vector3(0, 0, 10);
+            let v5 = new THREE.Vector3(10, 0, 10);
+            let v6 = new THREE.Vector3(10, 10, 10);
+            let v7 = new THREE.Vector3(0, 10, 10);
+
+            geom.vertices.push(v0);
+            geom.vertices.push(v1);
+            geom.vertices.push(v2);
+            geom.vertices.push(v3);
+            geom.vertices.push(v4);
+            geom.vertices.push(v5);
+            geom.vertices.push(v6);
+            geom.vertices.push(v7);
+
+            let f1 = new THREE.Face3(0, 1, 2);
+            let f2 = new THREE.Face3(0, 2, 3);
+            let f3 = new THREE.Face3(4, 5, 6);
+            let f4 = new THREE.Face3(4, 6, 7);
+            let f5 = new THREE.Face3(0, 1, 5);
+            let f6 = new THREE.Face3(0, 5, 4);
+            let f7 = new THREE.Face3(2, 3, 7);
+            let f8 = new THREE.Face3(2, 7, 6);
+            let f9 = new THREE.Face3(1, 2, 6);
+            let f10 = new THREE.Face3(1, 6, 5);
+            let f11 = new THREE.Face3(0, 3, 7);
+            let f12 = new THREE.Face3(0, 7, 4);
+
+            geom.faces.push(f1);
+            geom.faces.push(f2);
+            geom.faces.push(f3);
+            geom.faces.push(f4);
+            geom.faces.push(f5);
+            geom.faces.push(f6);
+            geom.faces.push(f7);
+            geom.faces.push(f8);
+            geom.faces.push(f9);
+            geom.faces.push(f10);
+            geom.faces.push(f11);
+            geom.faces.push(f12);
+
+
+            return geom;
+        }
+        //create uv map for cube with generated dot texture
+        let cube_geom = custom_cube_geom();
+
+
+        function makeTexture(){
+          var data = new Uint8Array( 16 * 16 * 3 );
+          for ( var i = 0; i < data.length; i += 3 ) {
+            var stride = i / 3;
+            data[ i ] = stride % 16;
+            data[ i + 1 ] = Math.floor( stride / 16 );
+            data[ i + 2 ] = 0;
+          }
+          var texture = new THREE.DataTexture( data, 16, 16, THREE.RGBFormat );
+          texture.needsUpdate = true;
+          return texture;
+
+
+        }
+        //uv map
+        function addTextureCoords(geom) {
+            var UVs = [];           // array of face descriptors
+
+            function faceCoords(as, at, bs, bt, cs, ct) {
+                // adds the texture coordinates for a single face to the UVs array
+                UVs.push([new THREE.Vector2(as, at),
+                new THREE.Vector2(bs, bt),
+                new THREE.Vector2(cs, ct)]);
+            }
+
+            // set up texture coordinates each side of cube
+            faceCoords(0, 0, 0, 1, 1, 0);      // bottom
+            faceCoords(0, 1, 1, 1, 1, 0);      // top
+            faceCoords(0, 1, 1, 0, 0, 0);    // front
+            faceCoords(0, 1, 1, 1, 0.5, 0);    // back
+            faceCoords(0, 1, 1, 1, 0, 0);    // left
+            faceCoords(0, 1, 1, 1, 0, 0);    // right
+
+            // attach the UVs array to the Geometry
+            geom.faceVertexUvs = [UVs];
+        }
+
+        addTextureCoords(cube_geom);
+
+        let cube_mat = new THREE.MeshBasicMaterial({
+            map: makeTexture(),
+            side: THREE.DoubleSide,
+            opacity: 1.5,
+            transparent: true,
+            depthWrite: false
+        });
+        let cube_mesh = new THREE.Mesh(cube_geom, cube_mat);
+        scene.add(cube_mesh);
+
+
+
 
 
 
