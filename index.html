@@ -264,6 +264,17 @@
         scene.add(cube_mesh2);
 
 
+        //add ambient light
+        let ambient_light = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambient_light);
+
+        //add directional light
+        let directional_light = new THREE.DirectionalLight(0xffffff, 0.5);
+        directional_light.position.set(0, 1, 1);
+        scene.add(directional_light);
+        
+
+
         //wall behind the cube
         let wall_geom = new THREE.BoxGeometry(100, 100, 1);
         let wall_mat = new THREE.MeshBasicMaterial({
@@ -277,8 +288,9 @@
         scene.add(wall_mesh);
 
 
+
         let left_glass_wall_geom = new THREE.BoxGeometry(100, 100, 1);
-        let left_glass_wall_mat = new THREE.MeshBasicMaterial({
+        let left_glass_wall_mat = new THREE.MeshPhongMaterial({
             color: "grey",
             side: THREE.DoubleSide,
             opacity: 0.2,
