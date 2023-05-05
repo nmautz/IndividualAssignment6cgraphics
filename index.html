@@ -79,6 +79,35 @@
             cameraControls.addEventListener('change', render);
             cameraControls.update();
         }
+
+        function createBezierCurve(cpList, steps, points_on_curve) {
+          var N = Math.round(steps) + 1 || tMax; // number of vertices
+          var positions = new Float32Array(N * 3);
+
+          var curve = new THREE.CubicBezierCurve3();
+          var cp = cpList[0];
+          curve.v0.set(cp[0], cp[1], cp[2]);
+          cp = cpList[1];
+          curve.v1.set(cp[0], cp[1], cp[2]);
+          cp = cpList[2];
+          curve.v2.set(cp[0], cp[1], cp[2]);
+          cp = cpList[3];
+          curve.v3.set(cp[0], cp[1], cp[2]);
+
+          var j, stepSize = 1 / (N - 1);
+          for (j = 0; j < N; j++) {
+              var point = curve.getPoint(j * stepSize);
+              positions[j * 3] = point.x;
+              positions[j * 3 + 1] = point.y;
+              positions[j * 3 + 2] = point.z;
+              points_on_curve.push(point);
+          }
+
+          var geometry = new THREE.BufferGeometry();
+          
+          geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+          return geometry;
+        }
     </script>
 
 </head>
@@ -309,6 +338,40 @@
         }
 
         startIncrease();
+
+
+        //create bezier curve for wall to follow
+        let cp_list_left = [
+          [0, 0, 0],
+          [-25,0,0],
+          [-25,0,25],
+
+          [-50,0,0]
+
+        ]
+        let cp_list_right = [
+          [-50, 0, 0],
+          [-25,0,0],
+          [-25,0,-25],
+          [0,0,0]
+        ]
+
+        let left_points = []
+        let curve_geom = createBezierCurve(cp_list_left, 25, left_points)
+        let right_points = []
+        let curve_geom2 = createBezierCurve(cp_list_right, 25, right_points)
+
+        let curve_mat = new THREE.LineBasicMaterial({
+          color: "red",
+          linewidth: 2
+        })
+
+        let curve_mesh = new THREE.Line(curve_geom, curve_mat);
+        scene.add(curve_mesh);
+
+        let curve_mesh2 = new THREE.Line(curve_geom2, curve_mat);
+        scene.add(curve_mesh2);
+        
 
 
 
