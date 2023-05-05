@@ -445,7 +445,22 @@
               is_moving = true;
               move_cube_along_curves();
             }
+          }else if(e.key == "ArrowUp"){
+            //move camera forward
+            camera.position.z -= 1;
+
+          }else if(e.key == "ArrowDown"){
+            //move camera backward
+            camera.position.z += 1;
+          }else if(e.key == "ArrowLeft"){
+            //move camera left
+            camera.position.x -= 1;
           }
+          else if(e.key == "ArrowRight"){
+            //move camera right
+            camera.position.x += 1;
+          }
+          render();
         })
 
 
