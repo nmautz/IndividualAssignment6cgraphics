@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Day Scene</title>
+
+    <style>
+
+        canvas {
+            display: block;
+            margin: 10px auto;
+            width: 80%;
+            height: 80%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+
+    <script src="./js/dat.gui.js"></script>
+    <script src="./js/three.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+
+
+    <script>
+
+        var state = {};
+        var ah = new THREE.AxesHelper(50);
+
+        var cameraParams = {
+            near: 1,
+            far: 1900,
+            fov: 75,                // degrees
+            aspectRatio: 700 / 500,   // from dimensions of the canvas, see CSS
+            atX: 0,
+            atY: 0,
+            atZ: 0,
+            eyeX: 0,
+            eyeY: 20,
+            eyeZ: -150,
+            upX: 0,
+            upY: 1,
+            upZ: 0
+        };
+
+
+
+        // setupCamera() function creates and returns a camera with the desired parameters
+        function setupCamera(cameraParameters) {
+            // set up an abbreviation 
+            var cp = cameraParameters;
+            // create an initial camera with the desired shape
+            var camera = new THREE.PerspectiveCamera(cp.fov, cp.aspectRatio, cp.near, cp.far);
+            // set the camera location and orientation
+            camera.position.set(cp.eyeX, cp.eyeY, cp.eyeZ);
+            camera.up.set(cp.upX, cp.upY, cp.upZ);
+            camera.lookAt(new THREE.Vector3(cp.atX, cp.atY, cp.atZ));
+            return camera;
+        }
+
+        function redoCamera() {
+            scene.remove(camera);
+            camera = setupCamera(cameraParams);
+            scene.add(camera)
+            render();
+        }
+
+
+        function render() {
+            // a render function; assume global variables scene, renderer, and camera
+            renderer.render(scene, camera);
+        }
+
+        function setupCameraControls() {
+            var cameraControls = new THREE.OrbitControls(camera, canvas);
+            state.cameraControls = cameraControls;
+            cameraControls.addEventListener('change', render);
+            cameraControls.update();
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Aircraft Carrier At Sea(Day)</h1>
+    <p>
+      controls: "t" to have the jet takeoff, "l" to land, "f" to have the camera map to following the jet in air which is currently <span id="ftext">false</span>
+    </p>
+
+    <script>
+
+
+
+      
+
+        var scene = new THREE.Scene();
+
+
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            setupCameraControls();
+
+        });
+
+
+        let cloud_geom = new THREE.SphereGeometry(1000, 32, 32);
+        let cloud_mat = new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load('./images/clouds.jpg', ()=>{
+                render();
+            }),
+            side: THREE.DoubleSide,
+            opacity: 1.5,
+            transparent: true,
+            depthWrite: false
+        });
+        let cloud1_mesh = new THREE.Mesh(cloud_geom, cloud_mat);
+        let cloud2_mesh = new THREE.Mesh(cloud_geom, cloud_mat);
+        let cloud3_mesh = new THREE.Mesh(cloud_geom, cloud_mat);
+
+        cloud1_mesh.position.set(0, 0, 0);
+
+        scene.add(cloud1_mesh);
+
+
+
+
+
+        var renderer = new THREE.WebGLRenderer();
+
+
+        var canvas = renderer.domElement;
+        state.renderer = renderer; 
+        state.scene = scene; 
+        var parent = document.body;
+        parent.appendChild(canvas);
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setClearColor(new THREE.Color("grey"), 1); 
+
+        //7. Set up a camera for the scene
+        var camera = setupCamera(cameraParams);
+        scene.add(camera);
+
+
+  
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
