@@ -274,6 +274,7 @@
         scene.add(directional_light);
 
 
+        let box_obj = new THREE.Object3D();
 
         //wall behind the cube
         let wall_geom = new THREE.BoxGeometry(100, 100, 1);
@@ -285,7 +286,7 @@
         });
         let wall_mesh = new THREE.Mesh(wall_geom, wall_mat);
         wall_mesh.position.z = 50;
-        scene.add(wall_mesh);
+        box_obj.add(wall_mesh);
 
 
 
@@ -300,12 +301,12 @@
         let left_glass_wall_mesh = new THREE.Mesh(left_glass_wall_geom, left_glass_wall_mat);
         left_glass_wall_mesh.position.x = -50;
         left_glass_wall_mesh.rotation.y = Math.PI / 2;
-        scene.add(left_glass_wall_mesh);
+        box_obj.add(left_glass_wall_mesh);
         left_glass_wall_mesh.renderOrder = 1;
 
         let right_glass_wall_mesh = left_glass_wall_mesh.clone();
         right_glass_wall_mesh.position.x = 50;
-        scene.add(right_glass_wall_mesh);
+        box_obj.add(right_glass_wall_mesh);
 
         let bottom_glass_mesh = left_glass_wall_mesh.clone();
         bottom_glass_mesh.position.x = 0;
@@ -317,14 +318,14 @@
 
 
 
-        scene.add(bottom_glass_mesh);
+        box_obj.add(bottom_glass_mesh);
 
 
         let top_glass_mesh = left_glass_wall_mesh.clone();
         top_glass_mesh.position.x = 0;
         top_glass_mesh.position.y = 50;
         top_glass_mesh.rotateX(Math.PI / 2);
-        scene.add(top_glass_mesh);
+        box_obj.add(top_glass_mesh);
 
 
         let front_glass_mesh = left_glass_wall_mesh.clone();
@@ -332,7 +333,9 @@
         front_glass_mesh.position.y = 0;
         front_glass_mesh.position.x = 0;
         front_glass_mesh.rotateY(Math.PI / 2);
-        scene.add(front_glass_mesh);
+        box_obj.add(front_glass_mesh);
+
+        scene.add(box_obj);
 
 
 
@@ -593,7 +596,7 @@
           bottom_glass_mesh.position.y = -50*val;
 
           front_glass_mesh.position.z = 50*val;
-          
+
 
           
           render();
