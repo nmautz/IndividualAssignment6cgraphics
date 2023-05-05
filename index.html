@@ -200,7 +200,7 @@
             }
 
             // set up texture coordinates each side of cube
-            faceCoords(0, 0, 0, 1, 1, 0);   
+            faceCoords(0, 0, 0, 1, 1, 0);    
             faceCoords(0, 1, 1, 1, 1, 0);    
             faceCoords(0, 1, 1, 0, 0, 0);    
             faceCoords(0, 1, 1, 1, 0.5, 0);  
@@ -222,13 +222,79 @@
         let cube_mat = new THREE.MeshBasicMaterial({
             map: makeTexture(),
             side: THREE.DoubleSide,
-            opacity: 1.5,
+            opacity: 1,
             transparent: true,
-            depthWrite: false
         });
         let cube_mesh = new THREE.Mesh(cube_geom, cube_mat);
         scene.add(cube_mesh);
 
+
+        //wall behind the cube
+        let wall_geom = new THREE.BoxGeometry(100, 100, 1);
+        let wall_mat = new THREE.MeshBasicMaterial({
+            color: "grey",
+            side: THREE.DoubleSide,
+            opacity: 1,
+            transparent: true,
+        });
+        let wall_mesh = new THREE.Mesh(wall_geom, wall_mat);
+        wall_mesh.position.z = 50;
+        scene.add(wall_mesh);
+
+
+        let scale_amount = 0.01;
+
+        //increase cube scale
+        function increaseScale() {
+            cube_mesh.scale.x += scale_amount;
+            cube_mesh.scale.y += scale_amount;
+            cube_mesh.scale.z += scale_amount;
+
+            //render the scene
+        }
+        
+        //decrease cube scale
+        function decreaseScale(){
+            cube_mesh.scale.x -= scale_amount;
+            cube_mesh.scale.y -= scale_amount;
+            cube_mesh.scale.z -= scale_amount;
+        }
+
+        //interval to increase scale
+
+        let increase_interval = null;
+        let decrease_interval = null;
+        let t = 0;
+        let max_t = 100;
+        function startIncrease(){
+            increase_interval = setInterval(()=>{
+                increaseScale();
+                t++;
+                if(t >= max_t){
+                    clearInterval(increase_interval);
+                    t = 0;
+                    startDecrease();
+                }
+                render()
+            }, 10);
+
+        }
+
+        function startDecrease(){
+            decrease_interval = setInterval(()=>{
+                decreaseScale();
+                t++;
+                if(t >= max_t){
+                    clearInterval(decrease_interval);
+                    t = 0;
+                    startIncrease();
+                }
+                render()
+            }, 10);
+
+        }
+
+        startIncrease();
 
 
 
