@@ -507,6 +507,10 @@
             obj.position.z += dir.z * amount;
           }
 
+          let audio = new Audio('./sounds/boom.mp3');
+          audio.play();
+
+
           let explode_interval = setInterval(()=>{
             move_obj_in_direction(left_glass_wall_mesh, {x: -1, y: 0, z: 0}, 5)
             move_obj_in_direction(right_glass_wall_mesh, {x: 1, y: 0, z: 0}, 5)
