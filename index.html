@@ -598,9 +598,39 @@
         var gui_params = {
           glass_transparency: 0.2,
           wall_scale: 1,
+          glass_color: "grey"
         }
 
         let gui = new dat.GUI();
+
+        gui.add(gui_params, "glass_color", ["red", "blue", "green", "grey"]).onChange((val)=>{
+          if(val == "red"){
+            front_glass_mesh.material.color.setHex(0xff0000);
+            left_glass_wall_mesh.material.color.setHex(0xff0000);
+            right_glass_wall_mesh.material.color.setHex(0xff0000);
+            top_glass_mesh.material.color.setHex(0xff0000);
+            bottom_glass_mesh.material.color.setHex(0xff0000);
+          }else if(val == "blue"){
+            front_glass_mesh.material.color.setHex(0x0000ff);
+            left_glass_wall_mesh.material.color.setHex(0x0000ff);
+            right_glass_wall_mesh.material.color.setHex(0x0000ff);
+            top_glass_mesh.material.color.setHex(0x0000ff);
+            bottom_glass_mesh.material.color.setHex(0x0000ff);
+          }else if(val == "green"){
+            front_glass_mesh.material.color.setHex(0x00ff00);
+            left_glass_wall_mesh.material.color.setHex(0x00ff00);
+            right_glass_wall_mesh.material.color.setHex(0x00ff00);
+            top_glass_mesh.material.color.setHex(0x00ff00);
+            bottom_glass_mesh.material.color.setHex(0x00ff00);
+          }else if(val == "grey"){
+            front_glass_mesh.material.color.setHex(0x808080);
+            left_glass_wall_mesh.material.color.setHex(0x808080);
+            right_glass_wall_mesh.material.color.setHex(0x808080);
+            top_glass_mesh.material.color.setHex(0x808080);
+            bottom_glass_mesh.material.color.setHex(0x808080);
+          }
+          render();
+        })
 
         gui.add(gui_params, "glass_transparency", 0, 1, 0.01).onChange((val)=>{
           front_glass_mesh.material.opacity = val;
