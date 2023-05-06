@@ -133,6 +133,15 @@
 
         });
 
+        var background_started = false;
+        document.addEventListener("click", (event) => {
+            //play background sound
+            if (background_started) return;
+            background_audio = new Audio('./sounds/pulsehumm.mp3');
+            background_audio.play();
+
+        });
+        alert("Click to start background sound");
 
         let cloud_geom = new THREE.SphereGeometry(1000, 32, 32);
         let cloud_mat = new THREE.MeshBasicMaterial({
@@ -524,6 +533,13 @@
             render();
 
           },10)
+
+          let stop_audio_timer = setTimeout(()=>{
+            audio.pause();
+            background_audio.pause();
+            audio.currentTime = 0;
+            background_audio.currentTime = 0;
+          }, 3000)
 
 
 
