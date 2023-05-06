@@ -498,6 +498,34 @@
         move_cube_along_curves();
         clearInterval(interval);
 
+
+        function explode_box(){
+
+          function move_obj_in_direction(obj, dir, amount){
+            obj.position.x += dir.x * amount;
+            obj.position.y += dir.y * amount;
+            obj.position.z += dir.z * amount;
+          }
+
+          let explode_interval = setInterval(()=>{
+            move_obj_in_direction(left_glass_wall_mesh, {x: -1, y: 0, z: 0}, 5)
+            move_obj_in_direction(right_glass_wall_mesh, {x: 1, y: 0, z: 0}, 5)
+            move_obj_in_direction(top_glass_mesh, {x: 0, y: 1, z: 0}, 5)
+            move_obj_in_direction(bottom_glass_mesh, {x: 0, y: -1, z: 0}, 5)
+            move_obj_in_direction(wall_mesh, {x: 0, y: 0, z: -1}, 5)
+            move_obj_in_direction(front_glass_mesh, {x: 0, y: 0, z: 1}, 5)
+            move_obj_in_direction(cube_mesh, {x: 0, y: -1, z: 0}, 0.5)
+            move_obj_in_direction(cube_mesh2, {x: 0, y: -1, z: 0}, 0.5)
+
+            render();
+
+          },10)
+
+
+
+
+        }
+
         document.addEventListener("keydown", (e)=>{
           if(e.key == " "){
             if(is_moving){
@@ -535,6 +563,9 @@
             camera.position.y = 0;
             camera.position.z = -150;
             camera.lookAt(0,0,150);
+
+          }else if(e.key == "g"){
+            explode_box();
 
           }
           render();
@@ -601,6 +632,7 @@
           
           render();
         })
+
 
 
 
